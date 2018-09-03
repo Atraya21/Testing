@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Printtokens2Test.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Printtokens2Test (1) (May 4, 2018 11:13:48 PM)</a> &gt; <a href="../../index.html" class="el_group">Trial1</a> &gt; <a href="../index.html" class="el_bundle">Trial1</a> &gt; <a href="index.source.html" class="el_package">com.example.java</a> &gt; <span class="el_source">Printtokens2Test.java</span></div><h1>Printtokens2Test.java</h1><pre class="source lang-java linenums">package com.example.java;
+import junit.framework.Assert;
+import org.junit.Rule;
+import org.junit.Test;
+import sun.applet.Main;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+
+import static org.junit.Assert.*;
+
+<span class="fc" id="L14">public class Printtokens2Test {</span>
+
+<span class="fc" id="L16">    Printtokens2 pTest = new Printtokens2();</span>
+<span class="fc" id="L17">    BufferedReader br = pTest.open_character_stream(&quot;file.txt&quot;);</span>
+
+    // 1.
+    @Test
+    public void open_character_stream() throws Exception {
+        // given a file name
+<span class="fc" id="L23">        br = pTest.open_character_stream(&quot;file.txt&quot;);</span>
+<span class="fc" id="L24">        assertSame(br.getClass(),BufferedReader.class);</span>
+
+        // input is null
+<span class="fc" id="L27">        br = pTest.open_character_stream(null);</span>
+<span class="fc" id="L28">        assertSame(br.getClass(),BufferedReader.class);</span>
+<span class="fc" id="L29">        assertEquals(&quot;Enter file name: &quot;, &quot;Enter file name: &quot;);</span>
+
+        // input string is empty
+<span class="fc" id="L32">        br = pTest.open_character_stream(&quot;&quot;);</span>
+<span class="fc" id="L33">        assertSame(br.getClass(),BufferedReader.class);</span>
+<span class="fc" id="L34">        assertEquals(&quot;Enter file name: &quot;, &quot;Enter file name: &quot;);</span>
+
+        // file does not exist
+        try {
+<span class="fc" id="L38">            br = pTest.open_character_stream(&quot;file&quot;);</span>
+<span class="fc" id="L39">        }</span>
+<span class="nc" id="L40">        catch (Exception e){</span>
+<span class="nc" id="L41">            Assert.fail();</span>
+        }
+<span class="fc" id="L43">    }</span>
+
+    // 2.
+    @Test
+    public void get_char() throws Exception {
+<span class="fc" id="L48">        char ct = pTest.get_char(br);</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (Character.isDefined(ct)) {</span>
+            assert true;
+<span class="fc" id="L51">        }</span>
+        else {
+<span class="nc" id="L53">            fail();</span>
+        }
+<span class="fc" id="L55">    }</span>
+
+    // 3.
+    @Test
+    public void testUnget_char() throws Exception {
+<span class="fc" id="L60">        br.mark(4);</span>
+<span class="fc" id="L61">        char ch = 'a';</span>
+<span class="fc" id="L62">        char ct = pTest.unget_char(ch,br);</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (Character.isDefined(ct)) {</span>
+            assert true;
+<span class="fc" id="L65">        }</span>
+        else {
+<span class="nc" id="L67">            fail();</span>
+        }
+<span class="fc" id="L69">        ch = '1';</span>
+<span class="fc" id="L70">        ct = pTest.unget_char(ch, br);</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if (Character.isDefined(ct)) {</span>
+            assert true;
+<span class="fc" id="L73">        }</span>
+        else {
+<span class="nc" id="L75">            fail();</span>
+        }
+<span class="fc" id="L77">        ch = '!';</span>
+<span class="fc" id="L78">        ct = pTest.unget_char(ch, br);</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (Character.isDefined(ct)) {</span>
+            assert true;
+<span class="fc" id="L81">        }</span>
+        else {
+<span class="nc" id="L83">            fail();</span>
+        }
+<span class="fc" id="L85">    }</span>
+
+    // 4.
+    @Test
+    public void testOpen_token_stream() throws Exception {
+
+<span class="fc" id="L91">        br = pTest.open_token_stream(&quot;file.txt&quot;);</span>
+<span class="fc" id="L92">        assertSame(br.getClass(),BufferedReader.class);</span>
+
+<span class="fc" id="L94">        br = pTest.open_token_stream(null);</span>
+<span class="fc" id="L95">        assertSame(br.getClass(), BufferedReader.class);</span>
+
+        try {
+<span class="fc" id="L98">            br = pTest.open_token_stream(&quot;file&quot;);        }</span>
+<span class="nc" id="L99">        catch (Exception e){</span>
+<span class="nc" id="L100">            Assert.fail();</span>
+        }
+<span class="fc" id="L102">    }</span>
+
+    
+    //5.
+    @Test
+    public void testGet_token() throws Exception {
+<span class="fc" id="L108">        br = pTest.open_token_stream(&quot;file.txt&quot;);</span>
+<span class="fc" id="L109">        int res = pTest.get_char(br);</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        if (res == -1) {</span>
+<span class="nc" id="L111">            assertEquals(pTest.get_token(br), null);</span>
+        }
+<span class="fc" id="L113">        assertEquals(pTest.get_token(br).getClass(), String.class);</span>
+<span class="fc" id="L114">    }</span>
+
+
+    //.6
+    @Test
+    public void testIs_token_end() throws Exception {
+
+<span class="fc" id="L121">    }</span>
+
+    // 7.
+    @Test
+    public void testToken_type() throws Exception {
+<span class="fc" id="L126">        assertEquals(pTest.token_type(&quot;and&quot;),1);</span>
+<span class="fc" id="L127">        assertEquals(pTest.token_type(&quot;or&quot;),1);</span>
+<span class="fc" id="L128">        assertEquals(pTest.token_type(&quot;if&quot;),1);</span>
+<span class="fc" id="L129">        assertEquals(pTest.token_type(&quot;xor&quot;),1);</span>
+<span class="fc" id="L130">        assertEquals(pTest.token_type(&quot;lambda&quot;),1);</span>
+<span class="fc" id="L131">        assertEquals(pTest.token_type(&quot;=&gt;&quot;),1);</span>
+
+<span class="fc" id="L133">        assertEquals(pTest.token_type(&quot;(&quot;),2);</span>
+<span class="fc" id="L134">        assertEquals(pTest.token_type(&quot;)&quot;),2);</span>
+<span class="fc" id="L135">        assertEquals(pTest.token_type(&quot;[&quot;),2);</span>
+<span class="fc" id="L136">        assertEquals(pTest.token_type(&quot;]&quot;),2);</span>
+<span class="fc" id="L137">        assertEquals(pTest.token_type(&quot;'&quot;),2);</span>
+<span class="fc" id="L138">        assertEquals(pTest.token_type(&quot;`&quot;),2);</span>
+
+<span class="fc" id="L140">        assertEquals(pTest.token_type(&quot;is1d&quot;),3);</span>
+<span class="fc" id="L141">        assertEquals(pTest.token_type(&quot;token&quot;),3);</span>
+
+<span class="fc" id="L143">        assertEquals(pTest.token_type(&quot;1&quot;),41);</span>
+<span class="fc" id="L144">        assertEquals(pTest.token_type(&quot;1111&quot;),41);</span>
+
+<span class="fc" id="L146">        assertEquals(pTest.token_type(&quot;\&quot;\&quot;&quot;),42);</span>
+<span class="fc" id="L147">        assertEquals(pTest.token_type(&quot;\&quot;abc\&quot;&quot;),42);</span>
+
+<span class="nc" id="L149">        assertEquals(pTest.token_type(&quot;#a&quot;),43);</span>
+
+        //assertEquals(pTest.token_type(&quot;//&quot;),5);
+<span class="nc" id="L152">    }</span>
+
+    // 8.
+    @Test
+    public void testPrint_token() throws Exception {
+<span class="fc" id="L157">        pTest.print_token(&quot;1error&quot;);</span>
+<span class="fc" id="L158">        pTest.print_token(&quot;and&quot;);</span>
+<span class="fc" id="L159">        pTest.print_token(&quot;(&quot;); //special sym</span>
+<span class="fc" id="L160">        pTest.print_token(&quot;1&quot;);</span>
+<span class="fc" id="L161">        pTest.print_token(&quot;identifer&quot;);</span>
+<span class="fc" id="L162">        pTest.print_token(&quot;\&quot;String\&quot;&quot;);</span>
+<span class="fc" id="L163">        pTest.print_token(&quot;//comment&quot;);</span>
+<span class="fc" id="L164">        pTest.print_token(&quot;#c&quot;);</span>
+<span class="fc" id="L165">    }</span>
+
+    // 9.
+    @Test
+    public void testIs_comment() throws Exception {
+<span class="fc" id="L170">        assertTrue(pTest.is_comment(&quot;//&quot;));</span>
+<span class="fc" id="L171">    }</span>
+
+    // 10.
+    @Test
+    public void is_keyword() throws Exception {
+<span class="fc" id="L176">        assertTrue(pTest.is_keyword(&quot;and&quot;));</span>
+<span class="fc" id="L177">        assertTrue(pTest.is_keyword(&quot;or&quot;));</span>
+<span class="fc" id="L178">        assertTrue(pTest.is_keyword(&quot;if&quot;));</span>
+<span class="fc" id="L179">        assertTrue(pTest.is_keyword(&quot;xor&quot;));</span>
+<span class="fc" id="L180">        assertTrue(pTest.is_keyword(&quot;lambda&quot;));</span>
+<span class="fc" id="L181">        assertTrue(pTest.is_keyword(&quot;=&gt;&quot;));</span>
+<span class="fc" id="L182">        assertFalse(pTest.is_keyword(&quot;testing&quot;));</span>
+<span class="fc" id="L183">    }</span>
+
+    // 11.
+    @Test
+    public void testIs_char_constant() throws Exception {
+<span class="fc" id="L188">        assertFalse(pTest.is_char_constant(&quot;a&quot;));</span>
+<span class="nc" id="L189">        assertTrue(pTest.is_char_constant(&quot;#a&quot;));</span>
+
+<span class="nc" id="L191">    }</span>
+
+    // 12.
+    @Test
+    public void testIs_num_constant() throws Exception {
+<span class="fc" id="L196">        assertFalse(pTest.is_num_constant(&quot;c&quot;));</span>
+<span class="fc" id="L197">        assertFalse(pTest.is_num_constant(&quot;1c&quot;));</span>
+
+<span class="fc" id="L199">        assertTrue(pTest.is_num_constant(&quot;1&quot;));</span>
+<span class="fc" id="L200">        assertTrue(pTest.is_num_constant(&quot;111111&quot;));</span>
+
+<span class="fc" id="L202">    }</span>
+
+    // 13.
+    @Test
+    public void testIs_str_constant() throws Exception {
+<span class="fc" id="L207">        assertFalse(pTest.is_str_constant(&quot;\&quot;&quot;));</span>
+<span class="fc" id="L208">        assertFalse(pTest.is_str_constant(&quot;\&quot;abc&quot;));</span>
+
+<span class="fc" id="L210">        assertTrue(pTest.is_str_constant(&quot;\&quot;\&quot;&quot;));</span>
+<span class="fc" id="L211">        assertTrue(pTest.is_str_constant(&quot;\&quot;abc\&quot;&quot;));</span>
+<span class="fc" id="L212">    }</span>
+
+    // 14.
+    @Test
+    public void testIs_identifier() throws Exception {
+<span class="fc" id="L217">        assertFalse(pTest.is_identifier(&quot;1&quot;));</span>
+<span class="fc" id="L218">        assertFalse(pTest.is_identifier(&quot;is!d&quot;));</span>
+
+<span class="fc" id="L220">        assertTrue(pTest.is_identifier(&quot;token&quot;));</span>
+
+
+<span class="fc" id="L223">    }</span>
+
+    //15.
+<span class="fc" id="L226">    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();</span>
+    @Test
+    public void testUnget_error() throws Exception {
+<span class="fc" id="L229">        pTest.unget_error(br);</span>
+<span class="fc" id="L230">        assertEquals(&quot;It can not get charcter\n&quot;, &quot;It can not get charcter\n&quot;);</span>
+
+<span class="fc" id="L232">    }</span>
+
+  
+    // 17.
+    @Test
+    public void testPrint_spec_symbol() throws Exception {
+<span class="fc" id="L238">        pTest.print_spec_symbol(&quot;(&quot;);</span>
+<span class="fc" id="L239">        pTest.print_spec_symbol(&quot;)&quot;);</span>
+<span class="fc" id="L240">        pTest.print_spec_symbol(&quot;[&quot;);</span>
+<span class="fc" id="L241">        pTest.print_spec_symbol(&quot;]&quot;);</span>
+<span class="fc" id="L242">        pTest.print_spec_symbol(&quot;\'&quot;);</span>
+<span class="fc" id="L243">        pTest.print_spec_symbol(&quot;`&quot;);</span>
+<span class="fc" id="L244">        pTest.print_spec_symbol(&quot;,&quot;);</span>
+
+        //System.setOut(new PrintStream(pTest.print_spec_symbol(&quot;)&quot;)));
+        //assertEquals(System.out., );
+<span class="fc" id="L248">    }</span>
+
+    // 18
+    @Test
+    public void testIs_spec_symbol() throws Exception {
+<span class="fc" id="L253">        assertTrue(pTest.is_spec_symbol('('));</span>
+<span class="fc" id="L254">        assertTrue(pTest.is_spec_symbol(')'));</span>
+<span class="fc" id="L255">        assertTrue(pTest.is_spec_symbol('['));</span>
+<span class="fc" id="L256">        assertTrue(pTest.is_spec_symbol('\''));</span>
+<span class="fc" id="L257">        assertTrue(pTest.is_spec_symbol('`'));</span>
+<span class="fc" id="L258">        assertTrue(pTest.is_spec_symbol(','));</span>
+
+<span class="fc" id="L260">        assertFalse(pTest.is_spec_symbol('d'));</span>
+<span class="fc" id="L261">        assertFalse(pTest.is_spec_symbol('1'));</span>
+<span class="fc" id="L262">    }</span>
+
+    @Test
+    public void testMain() throws Exception {
+<span class="fc" id="L266">        String[] args = {&quot;file.txt&quot;};</span>
+<span class="nc" id="L267">        pTest.main(args);</span>
+<span class="nc" id="L268">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span>Printtokens2Test (1) (May 4, 2018 11:13:48 PM)</div></body></html>
